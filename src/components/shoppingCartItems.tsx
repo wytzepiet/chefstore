@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { Check, ChevronRight, Minus, Plus, Trash } from "lucide-react";
 import { Input } from "./ui/input";
-import { priceString } from "@/lib/utils";
+import { cn, priceString } from "@/lib/utils";
 import { Separator } from "./ui/separator";
 import { Card } from "./ui/card";
 
@@ -18,24 +18,24 @@ export const ShoppingCartItems = () => {
       <div className="flex flex-col gap-4 p-4 max-w-xl">
         <h2 className="text-xl font-bold">Winkelwagen</h2>
         <div className="flex flex-col gap-4">
-          {cart?.items.map(({ product, amount }, i) => {
+          {cart?.items.map(({ product, amount }) => {
             return (
-              <div key={product.sku} className={"flex gap-4" + (i > 0 ? "border border-t pt-4" : "")}>
-                <div className="relative h-36 aspect-square">
+              <div key={product.sku} className={cn("flex gap-4")}>
+                <div className="relative h-32 aspect-square p-4 border rounded-md shadow-sm">
                   <div className="relative h-full w-full">
                     <Image src={product.image} alt={product.title} fill className="object-contain" />
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col justify-between">
                   <div>
                     <p className="font-bold">{product.title}</p>
-                    <div className="text-green-400 flex items-center font-bold">
-                      <Check strokeWidth={3} /> Direct leverbaar
+                    <div className="text-muted-foreground flex items-center font-semibold text-sm">
+                      <Check strokeWidth={2.5} /> Direct leverbaar
                     </div>
                   </div>
                   <div className="flex justify-between items-end">
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                       <Card className="flex rounded-md overflow-hidden shadow-sm w-fit">
                         <Button
                           size="icon"

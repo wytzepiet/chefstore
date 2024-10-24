@@ -13,7 +13,8 @@ body {
 }
 
 @layer base {
-  :root {
+  :root,
+  .light {
     --background: hsl(0, 0%, 100%);
     --foreground: hsl(222.2, 84%, 4.9%);
     --card: hsl(0, 0%, 100%);
@@ -21,6 +22,7 @@ body {
     --popover: hsl(0, 0%, 100%);
     --popover-foreground: hsl(222.2, 84%, 4.9%);
     --primary: hsl(210.34, 72.5%, 52.94%);
+    --primary: hsl(210, 100%, 9%);
     --primary-foreground: hsl(210, 40%, 98%);
     --secondary: hsl(24.77, 91.6%, 53.33%);
     --secondary-foreground: hsl(210, 40%, 98%);

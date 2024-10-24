@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 const withOpacity = (varName: string) => `rgba(from var(--${varName}) r g b / <alpha-value>)`;
 
@@ -60,6 +61,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 };
 export default config;

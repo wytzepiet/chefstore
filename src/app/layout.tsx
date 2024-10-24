@@ -17,11 +17,12 @@ import {
 import { Card } from "@/components/ui/card";
 
 import { Logo } from "@/components/logo";
-import { Search } from "lucide-react";
+import { BadgePercent, CookingPot, HandCoins, Search, ThumbsUp, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MenuItem, menuItems } from "../lib/menuItems";
 import { cn } from "@/lib/utils";
 import { NavIconMenu } from "@/lib/navIconMenu";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -37,10 +38,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className} antialiased bg-primary`}>
-        <div className="z-20 bg-primary shadow flex justify-center text-primary-foreground w-full py-2 sticky top-0">
-          <NavigationMenu className="grow max-w-screen-xl px-2 flex gap-2 items-center">
-            <div className="h-10 px-4">
+      <body className={`${openSans.className} antialiased bg-background dark`}>
+        <div className="flex justify-center relative z-10 py-[0.1rem]">
+          <div className="max-w-screen-2xl text-muted-foreground grow flex justify-between px-4 py-1">
+            <div className="flex items-center font-semibold text-sm">
+              <Truck className="stroke-secondary" /> Gratis verzending vanaf 75,-
+            </div>
+            <div className="flex items-center font-semibold text-sm">
+              <HandCoins className="stroke-secondary" /> Ook achteraf betalen
+            </div>
+            <div className="flex items-center font-semibold text-sm">
+              <ThumbsUp className="stroke-secondary" /> 100% garantie
+            </div>
+            <div className="flex items-center font-semibold text-sm">
+              <BadgePercent className="stroke-secondary" /> Altijd de laagste prijs
+            </div>
+            <div className="flex items-center font-semibold text-sm">
+              <CookingPot className="stroke-secondary" /> 100.000+ producten
+            </div>
+          </div>
+        </div>
+        {/* <div className="h-4"></div> */}
+        <div className="z-20 flex justify-center text-primary-foreground w-full px-4 sticky top-1 h-0">
+          <NavigationMenu className="grow max-w-screen-2xl px-2 flex gap-2 items-center rounded-lg p-2 h-fit">
+            <div className="h-9 px-4">
               <Link href="/">
                 <Logo />
               </Link>
@@ -50,8 +71,8 @@ export default function RootLayout({
               <div className="absolute"></div>
 
               <NavigationMenuItem>
-                <Card className="relative bg-primary-foreground/10 hover:bg-primary-foreground/20 border-border/20 rounded-md">
-                  <NavigationMenuTrigger className="relative !text-primary-foreground !bg-transparent items-center py-1">
+                <Card className="relative bg-primary-foreground/10 hover:bg-primary-foreground/15 border-primary-foreground/5 rounded-md">
+                  <NavigationMenuTrigger className="relative !text-primary-foreground !bg-transparent backdrop-blur items-center py-1">
                     <div className="text-left flex flex-col">
                       <div className="leading-none text-sm">Bekijk ons</div>
                       <div className="flex gap-1 items-center text-base">
@@ -61,7 +82,7 @@ export default function RootLayout({
                     </div>
                   </NavigationMenuTrigger>
                   <div className="absolute mt-2 rounded-lg w-fit h-fit shadow overflow-hidden">
-                    <NavigationMenuViewport className="transition-all" />
+                    <NavigationMenuViewport className="light transition-all" />
                   </div>
                 </Card>
                 <NavigationMenuContent className="">
@@ -70,7 +91,7 @@ export default function RootLayout({
               </NavigationMenuItem>
             </NavigationMenuList>
 
-            <div className="self-stretch bg-card text-card-foreground text-sm grow rounded-md flex gap-2 items-center p-1">
+            <div className="self-stretch bg-primary-foreground/10 border border-primary-foreground/5 backdrop-blur text-sm grow rounded-md flex gap-2 items-center p-1">
               <Button variant="ghost" className="text-muted-foreground">
                 <Search />
               </Button>
@@ -81,7 +102,7 @@ export default function RootLayout({
           </NavigationMenu>
         </div>
 
-        <div className="relative bg-background">{children}</div>
+        <div className="bg-background">{children}</div>
       </body>
     </html>
   );
@@ -100,26 +121,39 @@ const SubMenu = ({ items, title, noSeparator }: { items: MenuItem[]; title?: str
               {title}
             </Link>
           )}
-          {items.map(({ title, href, subItems }) => {
-            const itemClass = "w-full text-left text-nowrap flex gap-4 justify-between";
+          {items.map(({ title, href, imageUrl, subItems }) => {
+            const itemClass = "w-full text-left text-nowrap flex gap-4 justify-between py-[0.35rem] pl-3";
 
+            const images = ["chafing-dish", "schepijsvitrine", "soepketel-groen", "soepketel-zwart", "staafmixer"];
+            const image = imageUrl ?? `/images/products/${images[Math.floor(Math.random() * images.length)]}.avif`;
+
+            const titleEl = (
+              <div className="flex items-center gap-2 text-md">
+                <div className="relative h-11 w-11 p-1 border shadow-sm bg-card rounded-sm overflow-hidden">
+                  <div className="relative h-full w-full">
+                    <Image src={image} alt="" fill className="object-contain" />
+                  </div>
+                </div>
+                {title}
+              </div>
+            );
             return (
               <NavigationMenuItem key={href} value={href}>
                 {subItems?.length ? (
                   <NavigationMenuTrigger className={itemClass}>
-                    {title}
+                    {titleEl}
                     <div className="text-muted-foreground">
                       <NavigationChevron orientation="horizontal" />
                     </div>
                   </NavigationMenuTrigger>
                 ) : (
                   <Link href={href} className={cn(navigationMenuTriggerStyle(), itemClass)}>
-                    {title}
+                    {titleEl}
                   </Link>
                 )}
 
                 {subItems?.length && (
-                  <NavigationMenuContent className="flex flex-col items-stretch p-1 h-full">
+                  <NavigationMenuContent className="flex flex-col items-stretch p-1 h-full overflow-scroll">
                     <SubMenu items={subItems} title={title} />
                   </NavigationMenuContent>
                 )}
@@ -129,7 +163,7 @@ const SubMenu = ({ items, title, noSeparator }: { items: MenuItem[]; title?: str
         </NavigationMenuList>
 
         <div className="self-stretch p-0">
-          <NavigationMenuViewport className="h-fit min-h-[calc(100%+8px)] ml-[-4px] m-[-4px] pb-2 relative items-start border-none bg-transparent shadow-none" />
+          <NavigationMenuViewport className="ml-[-4px] m-[-4px] pb-2 relative items-start border-none bg-transparent shadow-none" />
         </div>
       </div>
     </NavigationMenuSub>

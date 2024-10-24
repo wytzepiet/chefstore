@@ -13,8 +13,8 @@ import { menuItems } from "./menuItems";
 import { ShoppingCartItems } from "@/components/shoppingCartItems";
 import { ShoppingCartCount } from "@/components/shoppingCartCount";
 import { useEffect, useState } from "react";
-import { useZustand } from "./useZustand";
-import { shoppingCartStore, useShoppingCartMenu } from "./shoppingCartStore";
+
+import { useShoppingCartMenu } from "./shoppingCartStore";
 
 export const NavIconMenu = () => {
   const cartMenu = useShoppingCartMenu();
@@ -51,13 +51,13 @@ export const NavIconMenu = () => {
         cartMenu?.setOpen(menuValue === "cart");
       }}
     >
-      <MenubarMenu value="contact">
+      <MenubarMenu value="contact ">
         <div className="relative hover:bg-primary-foreground/20 rounded-md">
           <MenubarTrigger className="relative flex gap-2 !text-primary-foreground !bg-transparent items-center px-3 py-1">
-            <Phone className="text-4xl" />
+            <Phone className="text-4xl" strokeWidth={1.5} />
             <div className="text-base font-bold hidden md:block">Contact</div>
           </MenubarTrigger>
-          <MenubarContent className="max-w-xl mr-2 text-sm">
+          <MenubarContent className="light max-w-xl mr-2 text-sm">
             <div className="p-3">
               <h3 className="font-semibold text-lg mb-1"> Sales & Advies</h3>
               <div className="grid grid-cols-2 gap-6 py-4">
@@ -123,7 +123,7 @@ export const NavIconMenu = () => {
       <MenubarMenu value="favourites">
         <div className="relative hover:bg-primary-foreground/20 rounded-md">
           <MenubarTrigger className="relative flex gap-2 !text-primary-foreground !bg-transparent items-center px-3 py-1">
-            <User className="text-4xl" />
+            <User className="text-4xl" strokeWidth={1.5} />
           </MenubarTrigger>
           {content}
         </div>
@@ -131,10 +131,10 @@ export const NavIconMenu = () => {
       <MenubarMenu value="cart">
         <div className="relative hover:bg-primary-foreground/20 rounded-md">
           <MenubarTrigger className="relative flex gap-2 !text-primary-foreground !bg-transparent items-center px-3 py-1">
-            <ShoppingCart className="text-4xl" />
-            <ShoppingCartCount className="absolute top-0 right-0 aspect-square h-5 rounded-full bg-secondary" />
+            <ShoppingCart className="text-4xl" strokeWidth={1.5} />
+            <ShoppingCartCount className="absolute top-0 right-0 aspect-square h-5 rounded-lg bg-secondary" />
           </MenubarTrigger>
-          <MenubarContent className="overflow-scroll p-0">
+          <MenubarContent className="light overflow-scroll p-0">
             <ShoppingCartItems />
           </MenubarContent>
         </div>
